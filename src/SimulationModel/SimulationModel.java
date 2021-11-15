@@ -14,23 +14,80 @@ import java.util.ArrayList;
  */
 public class SimulationModel {
     Scene scene;
-    Cell c;
+    int width = 10;
+    int height = 10;
+    Cell[] cells = new Cell[width*height];
     public SimulationModel() {
-        c = new Cell(2,2);
+        for (int i = 0; i < cells.length; i++) {
+            cells[i] = new Cell(i%width,(i/width),false);
+        }
+        cells[15] = new Cell(5,1, true);
+        cells[25] = new Cell(5,2, true);
+        cells[35] = new Cell(5,3, true);
+
     }
     public void update() {
-        c.update();
+        for (Cell cell:
+             cells) {
+            cell.setNeighbours(0);
+            if (cellStateAt(cell.getX()-1, cell.getY()-1)) { //cell up and to left
+                cell.setNeighbours(cell.getNeighbours()+1);
+            }
+            if (cellStateAt(cell.getX(),cell.getY()-1)) { //cell up
+                cell.setNeighbours(cell.getNeighbours()+1);
+            }
+            if (cellStateAt(cell.getX()+1,cell.getY()-1)) { //cell up and to right
+                cell.setNeighbours(cell.getNeighbours()+1);
+            }
+            if (cellStateAt(cell.getX()-1,cell.getY())) { //cell to left
+                cell.setNeighbours(cell.getNeighbours()+1);
+            }
+            if (cellStateAt(cell.getX()+1,cell.getY())) { //cell to right
+                cell.setNeighbours(cell.getNeighbours()+1);
+            }
+            if (cellStateAt(cell.getX()-1,cell.getY()+1)) { //cell below and to left
+                cell.setNeighbours(cell.getNeighbours()+1);
+            }
+            if (cellStateAt(cell.getX(),cell.getY()+1)) { //cell below
+                cell.setNeighbours(cell.getNeighbours()+1);
+            }
+            if (cellStateAt(cell.getX()+1,cell.getY()+1)) { //cell below and to right
+                cell.setNeighbours(cell.getNeighbours()+1);
+            }
+            if (cell.getNeighbours() == 3) {
+                cell.setNextState(true);
+            } else if (cell.getNeighbours() > 3) {
+                cell.setNextState(false);
+            } else if (2 > cell.getNeighbours()){
+                cell.setNextState(false);
+            }
+        }
+        for (Cell cell:
+             cells) {
+            cell.update();
+        }
+    }
+
+    private boolean cellStateAt(int x, int y) {
+        try {
+            if (cells[(x + y * width)].state()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return false;
+        }
     }
 
     public ArrayList<Shape> getShapes() {
         ArrayList<Shape> shapes = new ArrayList<>();
-        shapes.add(c.getShape());
+        for (Cell c:
+             cells) {
+            if (c.state()) {
+                shapes.add(c.getShape());
+            }
+        }
         return shapes;
-    }
-
-    public ArrayList<Sprite> getSprites() {
-        ArrayList<Sprite> sprites = new ArrayList<>();
-        sprites.add(c.getSprite());
-        return sprites;
     }
 }
