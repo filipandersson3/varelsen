@@ -19,11 +19,11 @@ public class SimulationModel {
     Cell[] cells = new Cell[width*height];
     public SimulationModel() {
         for (int i = 0; i < cells.length; i++) {
-            cells[i] = new Cell(i%width,(i/width),false);
+            cells[i] = new Cell(i%width,(i/width),Math.random()>=0.5);
         }
-        cells[15] = new Cell(5,1, true);
-        cells[25] = new Cell(5,2, true);
-        cells[35] = new Cell(5,3, true);
+        cells[11] = new Cell(1,1, true);
+        cells[12] = new Cell(2,1, true);
+        cells[13] = new Cell(3,1, true);
 
     }
     public void update() {
@@ -60,6 +60,8 @@ public class SimulationModel {
                 cell.setNextState(false);
             } else if (2 > cell.getNeighbours()){
                 cell.setNextState(false);
+            } else {
+                cell.setNextState(cell.state());
             }
         }
         for (Cell cell:

@@ -14,7 +14,7 @@ public class Controller implements Runnable{
     private Thread thread;
     private boolean running = false;
     private int fps = 25;
-    private int ups = 4;
+    private int ups = 1;
     private int width = 400;
     private int height = 400;
     private int scale = 40;
