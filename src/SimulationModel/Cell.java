@@ -27,7 +27,7 @@ public class Cell {
         return new Point(x,y);
     }
 
-    public void update() {
+    public void stateUpdate() {
         state = nextState;
     }
 
@@ -53,6 +53,55 @@ public class Cell {
 
     public int getNeighbours() {
         return neighbours;
+    }
+
+    public void update(Cell[] cells, int width) {
+        neighbours = 0;
+        if (cellStateAt(x-1,y-1,cells,width)) { //cell up and to left
+            neighbours++;
+        }
+        if (cellStateAt(x,y-1,cells,width)) { //cell up
+            neighbours++;
+        }
+        if (cellStateAt(x+1,y-1,cells,width)) { //cell up and to right
+            neighbours++;
+        }
+        if (cellStateAt(x-1,y,cells,width)) { //cell to left
+            neighbours++;
+        }
+        if (cellStateAt(x+1,y,cells,width)) { //cell to right
+            neighbours++;
+        }
+        if (cellStateAt(x-1,y+1,cells,width)) { //cell below and to left
+            neighbours++;
+        }
+        if (cellStateAt(x,y+1,cells,width)) { //cell below
+            neighbours++;
+        }
+        if (cellStateAt(x+1,y+1,cells,width)) { //cell below and to right
+            neighbours++;
+        }
+        if (neighbours == 3) {
+            nextState = true;
+        } else if (neighbours > 3) {
+            nextState = false;
+        } else if (2 > neighbours){
+            nextState = false;
+        } else {
+            nextState = state;
+        }
+    }
+
+    private boolean cellStateAt(int x, int y, Cell[] cells, int width) {
+        try {
+            if (cells[(x + y * width)].state()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return false;
+        }
     }
 
     public void setNeighbours(int neighbours) {

@@ -14,10 +14,10 @@ public class Controller implements Runnable{
     private Thread thread;
     private boolean running = false;
     private int fps = 25;
-    private int ups = 1;
-    private int width = 400;
-    private int height = 400;
-    private int scale = 40;
+    private int ups = 25;
+    private int width = 800;
+    private int height = 800;
+    private int scale = 4;
     private JFrame frameNative;
     //private JFrame frameSprite;
     private String title = "";
