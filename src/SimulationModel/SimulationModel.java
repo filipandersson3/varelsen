@@ -42,4 +42,12 @@ public class SimulationModel {
         }
         return shapes;
     }
+
+    public Cell[] getCells() {
+        return cells;
+    }
+
+    public int getWidth() {
+        return width;
+    }
 }

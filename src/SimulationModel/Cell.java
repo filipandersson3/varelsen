@@ -107,4 +107,8 @@ public class Cell {
     public void setNeighbours(int neighbours) {
         this.neighbours = neighbours;
     }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
 }

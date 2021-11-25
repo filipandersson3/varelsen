@@ -3,6 +3,10 @@ import SimulationModel.SimulationModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * This is a class
@@ -19,15 +23,13 @@ public class Controller implements Runnable{
     private int height = 800;
     private int scale = 4;
     private JFrame frameNative;
-    //private JFrame frameSprite;
     private String title = "";
     private ScreenRenderer viewNative;
-    //private ScreenRenderer viewSprite;
     private SimulationModel model;
+    private boolean paused = false;
 
     public Controller() {
         viewNative = new ScreenRenderer(width,height,scale);
-        //viewSprite = new ScreenRenderer(width,height,scale);
         model = new SimulationModel();
         // Frame data
         frameNative = new JFrame(title+"Native");
@@ -38,15 +40,8 @@ public class Controller implements Runnable{
         frameNative.setLocationRelativeTo(null);
         frameNative.setVisible(true);
         frameNative.requestFocus();
-
-        //frameSprite = new JFrame(title+"Sprite");
-        //frameSprite.add(viewSprite);
-        //frameSprite.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frameSprite.setResizable(false);
-        //frameSprite.pack();
-        //frameSprite.setLocationRelativeTo(null);
-        //frameSprite.setVisible(true);
-        //frameSprite.requestFocus();
+        viewNative.addKeyListener(new PauseAL());
+        viewNative.addMouseListener(new clickML());
     }
 
     public synchronized void start() {
@@ -78,20 +73,18 @@ public class Controller implements Runnable{
         while (running) {
             long now = System.nanoTime();
             deltaFPS += (now - lastTime) / nsFPS;
-            deltaUPS += (now - lastTime) / nsUPS;
-            lastTime = now;
-
-            while(deltaUPS >= 1) {
-                model.update();
-                viewNative.draw(model.getShapes());
-                //viewSprite.drawSprites(model.getSprites());
-                updates++;
-                deltaUPS--;
+            if (!paused) {
+                deltaUPS += (now - lastTime) / nsUPS;
+                while(deltaUPS >= 1) {
+                    model.update();
+                    viewNative.draw(model.getShapes());
+                    updates++;
+                    deltaUPS--;
+                }
             }
-
+            lastTime = now;
             while (deltaFPS >= 1) {
                 viewNative.render();
-                //viewSprite.render();
                 frames++;
                 deltaFPS--;
             }
@@ -109,5 +102,50 @@ public class Controller implements Runnable{
     public static void main(String[] args) {
         Controller c = new Controller();
         c.start();
+    }
+
+    private class PauseAL implements KeyListener {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            if (e.getKeyChar() == 'e') {
+                paused = !paused;
+            }
+        }
+
+        @Override
+        public void keyPressed(KeyEvent keyEvent) {
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent keyEvent) {
+
+        }
+    }
+    private class clickML implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent mouseEvent) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent mouseEvent) {
+            model.getCells()[mouseEvent.getX()/scale + (mouseEvent.getY()/scale)*model.getWidth()].setState(true);
+            viewNative.draw(model.getShapes());
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent mouseEvent) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent mouseEvent) {
+
+        }
     }
 }
