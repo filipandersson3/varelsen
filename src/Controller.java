@@ -2,10 +2,7 @@ import ScreenRenderer.ScreenRenderer;
 import SimulationModel.SimulationModel;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
 /**
  * This is a class
@@ -41,6 +38,7 @@ public class Controller implements Runnable{
         frameNative.requestFocus();
         viewNative.addKeyListener(new PauseAL());
         viewNative.addMouseListener(new ClickML());
+        viewNative.addMouseMotionListener(new DragML());
     }
 
     public synchronized void start() {
@@ -141,11 +139,23 @@ public class Controller implements Runnable{
 
         @Override
         public void mouseEntered(MouseEvent mouseEvent) {
-
         }
 
         @Override
         public void mouseExited(MouseEvent mouseEvent) {
+
+        }
+    }
+
+    private class DragML implements MouseMotionListener {
+        @Override
+        public void mouseDragged(MouseEvent mouseEvent) {
+            model.getCells()[mouseEvent.getX()/scale + (mouseEvent.getY()/scale)*model.getWidth()].setState(true);
+            viewNative.draw(model.getShapes());
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent mouseEvent) {
 
         }
     }
