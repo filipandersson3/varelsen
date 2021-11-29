@@ -129,7 +129,7 @@ public class Controller implements Runnable{
 
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
-            model.getCells()[mouseEvent.getX()/scale + (mouseEvent.getY()/scale)*model.getWidth()].setState(true);
+            model.getCells()[mouseEvent.getX()/scale + (mouseEvent.getY()/scale)*model.getWidth()].setState(!model.getCells()[mouseEvent.getX()/scale + (mouseEvent.getY()/scale)*model.getWidth()].state());
             viewNative.draw(model.getShapes());
         }
 
