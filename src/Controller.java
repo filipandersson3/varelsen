@@ -2,7 +2,6 @@ import ScreenRenderer.ScreenRenderer;
 import SimulationModel.SimulationModel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -17,20 +16,20 @@ import java.awt.event.MouseListener;
 public class Controller implements Runnable{
     private Thread thread;
     private boolean running = false;
-    private int fps = 25;
-    private int ups = 25;
-    private int width = 800;
-    private int height = 800;
-    private int scale = 4;
+    private int fps = Integer.parseInt(JOptionPane.showInputDialog("fps?"));
+    private int ups = Integer.parseInt(JOptionPane.showInputDialog("ups?"));
+    private int width = Integer.parseInt(JOptionPane.showInputDialog("width?"));
+    private int height = Integer.parseInt(JOptionPane.showInputDialog("height?"));
+    private int scale = Integer.parseInt(JOptionPane.showInputDialog("scale?"));
     private JFrame frameNative;
-    private String title = "";
+    private String title = "game of life :) ";
     private ScreenRenderer viewNative;
     private SimulationModel model;
-    private boolean paused = false;
+    private boolean paused = true;
 
     public Controller() {
         viewNative = new ScreenRenderer(width,height,scale);
-        model = new SimulationModel();
+        model = new SimulationModel(width/scale,height/scale);
         // Frame data
         frameNative = new JFrame(title+"Native");
         frameNative.add(viewNative);
@@ -41,7 +40,7 @@ public class Controller implements Runnable{
         frameNative.setVisible(true);
         frameNative.requestFocus();
         viewNative.addKeyListener(new PauseAL());
-        viewNative.addMouseListener(new clickML());
+        viewNative.addMouseListener(new ClickML());
     }
 
     public synchronized void start() {
@@ -81,6 +80,8 @@ public class Controller implements Runnable{
                     updates++;
                     deltaUPS--;
                 }
+            } else {
+                frameNative.setTitle("Paused, press 'E' to unpause");
             }
             lastTime = now;
             while (deltaFPS >= 1) {
@@ -107,7 +108,7 @@ public class Controller implements Runnable{
     private class PauseAL implements KeyListener {
         @Override
         public void keyTyped(KeyEvent e) {
-            if (e.getKeyChar() == 'e') {
+            if (e.getKeyChar() == 'e' || e.getKeyChar() == 'E') {
                 paused = !paused;
             }
         }
@@ -122,7 +123,7 @@ public class Controller implements Runnable{
 
         }
     }
-    private class clickML implements MouseListener {
+    private class ClickML implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent mouseEvent) {

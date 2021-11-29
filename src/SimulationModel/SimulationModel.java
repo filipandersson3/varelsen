@@ -13,10 +13,13 @@ import java.util.ArrayList;
  */
 public class SimulationModel {
     Scene scene;
-    int width = 200;
-    int height = 200;
-    Cell[] cells = new Cell[width*height];
-    public SimulationModel() {
+    int width;
+    int height;
+    Cell[] cells;
+    public SimulationModel(int width, int height) {
+        this.width = width;
+        this.height = height;
+        cells = new Cell[width*height];
         for (int i = 0; i < cells.length; i++) {
             cells[i] = new Cell(i%width,(i/width),Math.random()>=0.5);
         }
