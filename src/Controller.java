@@ -1,5 +1,6 @@
 import ScreenRenderer.ScreenRenderer;
 import SimulationModel.SimulationModel;
+import SimulationModel.Cell;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -23,6 +24,7 @@ public class Controller implements Runnable{
     private ScreenRenderer viewNative;
     private SimulationModel model;
     private boolean paused = true;
+    private Cell clickedCell;
 
     public Controller() {
         viewNative = new ScreenRenderer(width,height,scale);
@@ -129,7 +131,8 @@ public class Controller implements Runnable{
 
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
-            model.getCells()[mouseEvent.getX()/scale + (mouseEvent.getY()/scale)*model.getWidth()].setState(!model.getCells()[mouseEvent.getX()/scale + (mouseEvent.getY()/scale)*model.getWidth()].state());
+            clickedCell = model.getCells()[mouseEvent.getX()/scale + (mouseEvent.getY()/scale)*model.getWidth()];
+            clickedCell.setState(!clickedCell.state());
             viewNative.draw(model.getShapes());
         }
 

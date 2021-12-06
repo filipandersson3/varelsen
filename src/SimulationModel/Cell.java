@@ -57,29 +57,12 @@ public class Cell {
 
     public void update(Cell[] cells, int width) {
         neighbours = 0;
-        if (cellStateAt(x-1,y-1,cells,width)) { //cell up and to left
-            neighbours++;
-        }
-        if (cellStateAt(x,y-1,cells,width)) { //cell up
-            neighbours++;
-        }
-        if (cellStateAt(x+1,y-1,cells,width)) { //cell up and to right
-            neighbours++;
-        }
-        if (cellStateAt(x-1,y,cells,width)) { //cell to left
-            neighbours++;
-        }
-        if (cellStateAt(x+1,y,cells,width)) { //cell to right
-            neighbours++;
-        }
-        if (cellStateAt(x-1,y+1,cells,width)) { //cell below and to left
-            neighbours++;
-        }
-        if (cellStateAt(x,y+1,cells,width)) { //cell below
-            neighbours++;
-        }
-        if (cellStateAt(x+1,y+1,cells,width)) { //cell below and to right
-            neighbours++;
+        for (int m = -1; m < 2; m++) {
+            for (int n = -1; n < 2; n++) {
+                if (cellStateAt(x+m,y+n,cells,width) && !(m == 0 && n == 0)) {
+                    neighbours++;
+                }
+            }
         }
         if (neighbours == 3) {
             nextState = true;
