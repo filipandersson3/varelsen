@@ -23,7 +23,10 @@ public class SimulationModel {
         creatures.add(1, new Creature(4, 7));
     }
     public void update() {
-
+        for (Creature c:
+             creatures) {
+            c.update(creatures);
+        }
     }
 
     public ArrayList<Shape> getShapes() {
