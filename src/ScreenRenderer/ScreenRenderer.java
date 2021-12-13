@@ -62,7 +62,7 @@ public class ScreenRenderer extends Canvas {
     public void draw(ArrayList<Shape> shapes) {
         screen.clear();
         for (Shape s : shapes) {
-            screen.draw((Point) s, 0xFFFFFF);
+            screen.draw((Point) s, ((Point) s).getColor());
         }
     }
 

@@ -9,10 +9,17 @@ package Shapes;
 public class Point extends Shape{
     private int x;
     private int y;
+    private int color = 0x00ff00;
 
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Point(int x, int y, int color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
     }
 
     public int getX() {
@@ -29,5 +36,13 @@ public class Point extends Shape{
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }

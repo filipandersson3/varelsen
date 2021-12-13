@@ -1,6 +1,6 @@
 import ScreenRenderer.ScreenRenderer;
 import SimulationModel.SimulationModel;
-import SimulationModel.Cell;
+import SimulationModel.Creature;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -24,7 +24,7 @@ public class Controller implements Runnable{
     private ScreenRenderer viewNative;
     private SimulationModel model;
     private boolean paused = true;
-    private Cell clickedCell;
+    private Creature clickedCreature;
 
     public Controller() {
         viewNative = new ScreenRenderer(width,height,scale);
@@ -131,9 +131,6 @@ public class Controller implements Runnable{
 
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
-            clickedCell = model.getCells()[mouseEvent.getX()/scale + (mouseEvent.getY()/scale)*model.getWidth()];
-            clickedCell.setState(!clickedCell.state());
-            viewNative.draw(model.getShapes());
         }
 
         @Override
@@ -153,8 +150,6 @@ public class Controller implements Runnable{
     private class DragML implements MouseMotionListener {
         @Override
         public void mouseDragged(MouseEvent mouseEvent) {
-            model.getCells()[mouseEvent.getX()/scale + (mouseEvent.getY()/scale)*model.getWidth()].setState(true);
-            viewNative.draw(model.getShapes());
         }
 
         @Override

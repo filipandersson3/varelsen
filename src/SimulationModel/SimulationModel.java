@@ -15,39 +15,28 @@ public class SimulationModel {
     Scene scene;
     int width;
     int height;
-    Cell[] cells;
+    ArrayList<Creature> creatures = new ArrayList<>();
     public SimulationModel(int width, int height) {
         this.width = width;
         this.height = height;
-        cells = new Cell[width*height];
-        for (int i = 0; i < cells.length; i++) {
-            cells[i] = new Cell(i%width,(i/width),Math.random()>=0.5);
-        }
+        creatures.add(0, new Creature(5, 7));
+        creatures.add(1, new Creature(4, 7));
     }
     public void update() {
-        for (Cell cell:
-             cells) {
-            cell.update(cells,width);
-        }
-        for (Cell cell:
-             cells) {
-            cell.stateUpdate();
-        }
+
     }
 
     public ArrayList<Shape> getShapes() {
         ArrayList<Shape> shapes = new ArrayList<>();
-        for (Cell c:
-             cells) {
-            if (c.state()) {
-                shapes.add(c.getShape());
-            }
+        for (Creature c:
+                creatures) {
+            shapes.add(c.getShape());
         }
         return shapes;
     }
 
-    public Cell[] getCells() {
-        return cells;
+    public ArrayList<Creature> getCells() {
+        return creatures;
     }
 
     public int getWidth() {
