@@ -16,6 +16,7 @@ public class SimulationModel {
     int width;
     int height;
     ArrayList<Creature> creatures = new ArrayList<>();
+    ArrayList<Creature> creatureGarbageList = new ArrayList<>();
     public SimulationModel(int width, int height) {
         this.width = width;
         this.height = height;
@@ -27,6 +28,23 @@ public class SimulationModel {
              creatures) {
             c.update(creatures);
         }
+        for (Creature c:
+                creatures) {
+            if (c.isDead()) {
+                System.out.println(c.getX() + " " + c.getY() + " is dead not big surprise");
+                creatureGarbageList.add(c);
+                System.out.println("deleting...");
+            }
+        }
+
+        for (Creature g:
+                creatureGarbageList) {
+            creatures.remove(g);
+            System.out.println(g.getX() + " in garbage");
+        }
+        creatureGarbageList.clear();
+
+
     }
 
     public ArrayList<Shape> getShapes() {
