@@ -12,10 +12,10 @@ import java.util.ArrayList;
  *
  * @author Magnus Silverdal
  */
-public class Creature {
+public abstract class Creature {
     private int x;
     private int y;
-    private int color = 0xff0000;
+    private int color = 0xffffff;
     private boolean dead = false;
 
     public Creature(int x, int y) {
@@ -39,24 +39,15 @@ public class Creature {
         return y;
     }
 
-    public void update(ArrayList<Creature> creatures) {
-        for (Creature neighbour:
-             checkNeighbours(creatures)) {
-            System.out.print(" " + neighbour.getX()+ " " + neighbour.getY() + " ");
-        }
-        if (checkNeighbours(creatures).size() > 0) {
-            checkNeighbours(creatures).get(0).kill();
-        }
-
-        //x = checkNeighbours(creatures).get(1).getX();
-        //y = checkNeighbours(creatures).get(1).getY();
-
-        System.out.println("");
-        System.out.println("my name" + x + " " + y);
-
+    public void setX(int x) {
+        this.x = x;
     }
 
-    private ArrayList<Creature> checkNeighbours(ArrayList<Creature> creatures) {
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public ArrayList<Creature> checkNeighbours(ArrayList<Creature> creatures) {
         ArrayList<Creature> creaturesNear = new ArrayList<>();
         for (Creature c:
                 creatures) {
@@ -77,5 +68,11 @@ public class Creature {
 
     public boolean isDead() {
         return dead;
+    }
+
+    public abstract void update(ArrayList<Creature> creatures);
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }

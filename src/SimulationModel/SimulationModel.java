@@ -20,8 +20,9 @@ public class SimulationModel {
     public SimulationModel(int width, int height) {
         this.width = width;
         this.height = height;
-        creatures.add(0, new Creature(5, 7));
-        creatures.add(1, new Creature(4, 7));
+        creatures.add(0, new Predator(5, 7));
+        creatures.add(1, new Predator(4, 7));
+        creatures.add(2, new Predator(7,7));
     }
     public void update() {
         for (Creature c:
