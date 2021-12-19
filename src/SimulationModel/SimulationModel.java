@@ -24,6 +24,8 @@ public class SimulationModel {
         creatures.add(1, new Predator(4, 7));
         creatures.add(2, new Predator(30,30));
         creatures.add(3, new Predator(30,32));
+        creatures.add(4, new Plant(30,36));
+        creatures.add(5, new Prey(30,34));
     }
     public void update() {
         for (Creature c:

@@ -15,7 +15,7 @@ public class Controller implements Runnable{
     private Thread thread;
     private boolean running = false;
     private int fps = 30;//Integer.parseInt(JOptionPane.showInputDialog("fps?"));
-    private int ups = 1;//Integer.parseInt(JOptionPane.showInputDialog("ups?"));
+    private int ups = 2;//Integer.parseInt(JOptionPane.showInputDialog("ups?"));
     private int width = 400;//Integer.parseInt(JOptionPane.showInputDialog("width?"));
     private int height = 400;//Integer.parseInt(JOptionPane.showInputDialog("height?"));
     private int scale = 4;//Integer.parseInt(JOptionPane.showInputDialog("scale?"));

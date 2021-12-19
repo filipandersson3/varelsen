@@ -1,9 +1,5 @@
 package SimulationModel;
 
-import Shapes.Point;
-import Shapes.Shape;
-import Shapes.Sprite;
-
 import java.util.ArrayList;
 
 /**
@@ -12,26 +8,19 @@ import java.util.ArrayList;
  *
  * @author Magnus Silverdal
  */
-public class Predator extends Creature {
-    private int color = 0xff0000;
+public class Prey extends Creature {
+    private int color = 0x0000ff;
 
 
-    public Predator(int x, int y) {
+    public Prey(int x, int y) {
         super(x,y);
         super.setColor(color);
     }
 
     public void update(ArrayList<Creature> creatures) {
-        for (Creature neighbour:
-             checkNeighbours(creatures)) {
-            System.out.print(" " + neighbour.getX()+ " " + neighbour.getY() + " baba");
-        }
-        System.out.println("");
-        System.out.println("my name" + super.getX() + " " + super.getY());
         if (checkNeighbours(creatures).size() > 0) {
             for (int i = 0; i<checkNeighbours(creatures).size(); i++) {
-                if (checkNeighbours(creatures).get(i).getClass() == Predator.class ||
-                        checkNeighbours(creatures).get(i).getClass() == Prey.class) {
+                if (checkNeighbours(creatures).get(i).getClass() == Plant.class) {
                     Creature target = checkNeighbours(creatures).get(i);
                     super.setX(target.getX());
                     super.setY(target.getY());
@@ -43,6 +32,5 @@ public class Predator extends Creature {
         } else {
             moveRandom();
         }
-
     }
 }
