@@ -20,7 +20,10 @@ public class Screen {
     }
 
     public void draw(int x, int y , int color) {
-        pixels[y*width+x] = color;
+        if (x<width && x>0 && y<height && y>0) {
+            pixels[y*width+x] = color;
+        }
+
     }
 
     public void draw(Point p, int color) {

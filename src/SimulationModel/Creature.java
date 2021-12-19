@@ -51,7 +51,7 @@ public abstract class Creature {
         ArrayList<Creature> creaturesNear = new ArrayList<>();
         for (Creature c:
                 creatures) {
-            for (int i = 1; i < 10; i++) {
+            for (int i = 0; i < 9; i++) {
                 if (c.getX() == x-1+i%3 && c.getY() == y-1+i/3) {
                     if (!(c.getX() == x && c.getY() == y)) {
                         creaturesNear.add(c);
@@ -74,5 +74,12 @@ public abstract class Creature {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public void moveRandom() {
+        int rx = (int)(Math.random()*3)-1;
+        int ry = (int)(Math.random()*3)-1;
+        x=x+rx;
+        y=y+ry;
     }
 }

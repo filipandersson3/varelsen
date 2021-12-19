@@ -14,11 +14,11 @@ import java.awt.event.*;
 public class Controller implements Runnable{
     private Thread thread;
     private boolean running = false;
-    private int fps = Integer.parseInt(JOptionPane.showInputDialog("fps?"));
-    private int ups = Integer.parseInt(JOptionPane.showInputDialog("ups?"));
-    private int width = Integer.parseInt(JOptionPane.showInputDialog("width?"));
-    private int height = Integer.parseInt(JOptionPane.showInputDialog("height?"));
-    private int scale = Integer.parseInt(JOptionPane.showInputDialog("scale?"));
+    private int fps = 30;//Integer.parseInt(JOptionPane.showInputDialog("fps?"));
+    private int ups = 1;//Integer.parseInt(JOptionPane.showInputDialog("ups?"));
+    private int width = 400;//Integer.parseInt(JOptionPane.showInputDialog("width?"));
+    private int height = 400;//Integer.parseInt(JOptionPane.showInputDialog("height?"));
+    private int scale = 4;//Integer.parseInt(JOptionPane.showInputDialog("scale?"));
     private JFrame frameNative;
     private String title = "game of life :) ";
     private ScreenRenderer viewNative;

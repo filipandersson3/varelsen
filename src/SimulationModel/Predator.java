@@ -23,32 +23,19 @@ public class Predator extends Creature {
 
     public void update(ArrayList<Creature> creatures) {
         for (Creature neighbour:
-             super.checkNeighbours(creatures)) {
-            System.out.print(" " + neighbour.getX()+ " " + neighbour.getY() + " ");
+             checkNeighbours(creatures)) {
+            System.out.print(" " + neighbour.getX()+ " " + neighbour.getY() + " baba");
         }
-        if (super.checkNeighbours(creatures).size() > 0) {
-            super.checkNeighbours(creatures).get(0).kill();
-        } else {
-            int r = (int)(Math.random()*3);
-            if (r == 0) {
-                super.setY(super.getY()-1); //bajs ändra
-            }
-            if (r == 1) {
-                super.setX(super.getX()+1);
-            }
-            if (r == 2) {
-                super.setY(super.getY()+1);
-            }
-            if (r == 3) {
-                super.setX(super.getX()-1);
-            }
-        }
-
-        //x = checkNeighbours(creatures).get(1).getX();
-        //y = checkNeighbours(creatures).get(1).getY();
-
         System.out.println("");
         System.out.println("my name" + super.getX() + " " + super.getY());
+        if (checkNeighbours(creatures).size() > 0) {
+            Creature target = checkNeighbours(creatures).get(0);
+            super.setX(target.getX());
+            super.setY(target.getY());
+            target.kill();
+        } else {
+            moveRandom();
+        }
 
     }
 }
